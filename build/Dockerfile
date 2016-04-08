@@ -1,5 +1,4 @@
 # Alpine Linux standard
-# alpine based
 
 FROM alpine:latest
 MAINTAINER youske miyakoshi <youske@gmail.com>
@@ -24,10 +23,12 @@ RUN apk add ${PACKAGE} --no-cache && apk add ${BUILDPACK} --no-cache -t buildpac
 RUN wget -q --no-check-certificate ${ENTRYKIT_DOWNLOAD} -O- | tar zx && \
     chmod +x /entrykit && mv /entrykit /bin && /bin/entrykit --symlink
 
+# gosu
+
 # remove
 RUN apk del buildpack --no-cache && rm -rf /tmp/* /var/cache/apk/*
 
 RUN adduser -D -h /home/admin -s /bin/bash admin admin
 
 WORKDIR ${WORK_DIR}
-CMD ["bash"]
+ENTRYPOINT ["switch","shell=/bin/bash","--","/bin/bash"]
