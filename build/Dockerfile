@@ -4,7 +4,6 @@ FROM alpine:latest
 MAINTAINER youske miyakoshi <youske@gmail.com>
 
 LABEL com.geeplus.description="alpine standard image" \
-      com.geeplus.vendor="geeplus.inc" \
       com.geeplus.role="baseimage"
 
 ENV ENTRYKIT_VERSION=0.4.0
@@ -24,7 +23,7 @@ RUN apk update --no-cache && apk add ${PACKAGE} --no-cache && apk add ${BUILDPAC
 
 # entrykit install
 RUN wget -q --no-check-certificate ${ENTRYKIT_DOWNLOAD} -O- | tar zx && \
-    chmod +x /entrykit && mv /entrykit /bin && /bin/entrykit --symlink
+    chmod +x /entrykit && mv /entrykit /usr/bin && /usr/bin/entrykit --symlink
 
 # gosu
 RUN wget -q --no-check-certificate ${GOSU_DOWNLOAD} -O /usr/bin/gosu && chmod +x /usr/bin/gosu
@@ -35,4 +34,4 @@ RUN apk del buildpack --no-cache && rm -rf /tmp/* /var/cache/apk/*
 RUN adduser -D -h /home/admin -s /bin/bash admin admin
 
 WORKDIR ${WORK_DIR}
-CMD ["/usr/bash"]
+CMD ["/bin/bash"]

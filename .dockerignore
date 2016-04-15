@@ -7,7 +7,6 @@ tests/
 .git*
 .sync-config.cson
 .remote-sync.json
-Makefile*
 LICENSE*
 README*
 
