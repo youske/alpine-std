@@ -1,8 +1,7 @@
 version: "2"
 services:
 
-  stdimage:
-    container_name: standard
+  base:
     build: build
     ulimits:
       nproc: 65535
